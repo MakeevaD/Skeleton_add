@@ -6,7 +6,34 @@ public class BoneSelectable : MonoBehaviour
 
     private Renderer rend;
     private Color originalColor;
+
+    private Color UnselectedColor => isHighlightedForDebugging ? Color.red : originalColor;
+
+    private bool isHighlightedForDebugging = false;
+    public bool IsHighlightedForDebugging
+    {
+        get => isHighlightedForDebugging;
+        set
+        {
+            isHighlightedForDebugging = value;
+
+            if (!isSelected && rend != null)
+                rend.material.color = UnselectedColor;
+        }
+    }
+
     private bool isSelected = false;
+    public bool IsSelected
+    {
+        get => isSelected;
+        set
+        {
+            isSelected = value;
+
+            if (rend != null)
+                rend.material.color = isSelected ? Color.yellow : UnselectedColor;
+        }
+    }
 
     void Start()
     {
@@ -18,32 +45,24 @@ public class BoneSelectable : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (rend != null)
-        {
-            if (isSelected)
-            {
-                rend.material.color = originalColor;
-                isSelected = false;
-            }
-            else
-            {
-                rend.material.color = Color.yellow;
-                isSelected = true;
-            }
-        }
+        IsSelected = !IsSelected;
 
+#if (UNITY_EDITOR)
         if (boneData != null)
-            Debug.Log("Выбрана кость: " + boneData.boneName + " ID: " + boneData.boneID);
+        {
+            Debug.Log($"Выбрана кость: {boneData.boneName} ID: {boneData.boneID}");
+        }
         else
-            Debug.Log("Выбрана кость: " + gameObject.name);
+        {
+            Debug.LogWarning($"Кость {gameObject.name} не содержит BoneData!");
+            Debug.Log($"Выбрана кость: {gameObject.name}");
+        }
+#endif
     }
 
-    public void ResetColor()
+    public void ResetSelectionAndHighlight()
     {
-        if (rend != null)
-        {
-            rend.material.color = originalColor;
-            isSelected = false;
-        }
+        IsHighlightedForDebugging = false;
+        IsSelected = false;
     }
 }
