@@ -24,9 +24,9 @@ public class QuizManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private string currentQuestionTemplate = "Вопрос {0} из {1}";
-    [SerializeField] private string boneNamesTemplate = "Выберите кости: {0}";
-    [SerializeField] private string correctAnswersCountTemplate = "Правильных ответов: {0}";
+    [SerializeField] private string currentQuestionTemplate = "Р’РѕРїСЂРѕСЃ {0} РёР· {1}";
+    [SerializeField] private string boneNamesTemplate = "Р’С‹Р±РµСЂРёС‚Рµ РєРѕСЃС‚Рё: {0}";
+    [SerializeField] private string correctAnswersCountTemplate = "РџСЂР°РІРёР»СЊРЅС‹С… РѕС‚РІРµС‚РѕРІ: {0}";
 
     [Header("Quiz Settings")]
 
@@ -43,7 +43,7 @@ public class QuizManager : MonoBehaviour
     {
         if (bones == null || !bones.Any())
         {
-            Debug.LogError("В Quiz Manager не заполнен массив костей!");
+            Debug.LogError("Р’ Quiz Manager РЅРµ Р·Р°РїРѕР»РЅРµРЅ РјР°СЃСЃРёРІ РєРѕСЃС‚РµР№!");
             return;
         }
 
@@ -88,13 +88,13 @@ public class QuizManager : MonoBehaviour
             .ToList();
 
 #if (UNITY_EDITOR)
-        Debug.Log($"В базе найдено {distinctBoneNames.Count} уникальных названий костей");
+        Debug.Log($"Р’ Р±Р°Р·Рµ РЅР°Р№РґРµРЅРѕ {distinctBoneNames.Count} СѓРЅРёРєР°Р»СЊРЅС‹С… РЅР°Р·РІР°РЅРёР№ РєРѕСЃС‚РµР№");
 #endif
 
         if (distinctBoneNames.Count < questionCount)
         {
 #if (UNITY_EDITOR)
-            Debug.LogError("Уникальных названий костей меньше, чем нужно сгенерировать вопросов!");
+            Debug.LogError("РЈРЅРёРєР°Р»СЊРЅС‹С… РЅР°Р·РІР°РЅРёР№ РєРѕСЃС‚РµР№ РјРµРЅСЊС€Рµ, С‡РµРј РЅСѓР¶РЅРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РІРѕРїСЂРѕСЃРѕРІ!");
 #endif
             return;
         }
@@ -148,7 +148,7 @@ public class QuizManager : MonoBehaviour
         if (!questions.TryGetValue(currentQuestion, out List<BoneData> bones))
         {
 #if (UNITY_EDITOR)
-            Debug.LogWarning("Попытка отобразить вопрос с несуществующим индексом.");
+            Debug.LogWarning("РџРѕРїС‹С‚РєР° РѕС‚РѕР±СЂР°Р·РёС‚СЊ РІРѕРїСЂРѕСЃ СЃ РЅРѕРјРµСЂРѕРј, РєРѕС‚РѕСЂРѕРіРѕ РЅРµС‚ РІ СЃРїРёСЃРєРµ РІРѕРїСЂРѕСЃРѕРІ.");
 #endif
             return;
         }
@@ -188,8 +188,12 @@ public class QuizManager : MonoBehaviour
             .Select(boneData => boneData.boneID)
             .ToList();
 
+        Debug.Log(correctBoneIDs.Count);
+
         var correctSelectableBones = FindObjectsByType<BoneSelectable>(FindObjectsSortMode.None)
-            .Where(bone => correctBoneIDs.Contains(bone.boneData.boneID));
+            .Where(bone => bone.boneData != null && correctBoneIDs.Contains(bone.boneData.boneID));
+
+        Debug.Log(correctSelectableBones.Count());
 
         foreach (BoneSelectable bone in correctSelectableBones)
             bone.IsHighlightedForDebugging = true;
@@ -208,7 +212,7 @@ public class QuizManager : MonoBehaviour
         confirmAnswerButton.interactable = false;
 
         var selectedBoneIDs = FindObjectsByType<BoneSelectable>(FindObjectsSortMode.None)
-            .Where(bone => bone.IsSelected)
+            .Where(bone => bone.IsSelected && bone.boneData != null)
             .Select(bone => bone.boneData.boneID)
             .OrderBy(id => id)
             .ToList();
@@ -223,9 +227,9 @@ public class QuizManager : MonoBehaviour
         answers[currentQuestion] = correct;
 
         if (correct)
-            answerStatusText.SetSuccess("Ваш ответ верный!");
+            answerStatusText.SetSuccess("Р’Р°С€ РѕС‚РІРµС‚ РІРµСЂРЅС‹Р№!");
         else
-            answerStatusText.SetFailure("Ваш ответ неверный!");
+            answerStatusText.SetFailure("Р’Р°С€ РѕС‚РІРµС‚ РЅРµРІРµСЂРЅС‹Р№!");
 
         ShowCorrectAnswersCount(answers.Values.Count(correct => correct));
 

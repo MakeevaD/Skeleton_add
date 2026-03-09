@@ -6753,7 +6753,7 @@ MonoBehaviour:
     \u043E\u0442\u0432\u0435\u0442\u043E\u0432: {0}"
   questionCount: 10
   questionGeneratorSeed: 0
-  highlightCorrectBonesForDebugging: 0
+  highlightCorrectBonesForDebugging: 1
 --- !u!4 &1620444803
 Transform:
   m_ObjectHideFlags: 0

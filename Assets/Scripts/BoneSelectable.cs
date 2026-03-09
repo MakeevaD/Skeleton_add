@@ -35,7 +35,7 @@ public class BoneSelectable : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         rend = GetComponent<Renderer>();
 
