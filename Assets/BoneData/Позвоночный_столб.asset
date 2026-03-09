@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a758e5f02b4a945dca391351955cff16, type: 3}
-  m_Name: "\u041F\u043E\u0437\u0432\u043E\u043D\u043E\u0447\u043D\u044B\u0438\u0306_\u0441\u0442\u043E\u043B\u0431"
+  m_Name: "\u041F\u043E\u0437\u0432\u043E\u043D\u043E\u0447\u043D\u044B\u0439_\u0441\u0442\u043E\u043B\u0431"
   m_EditorClassIdentifier: 
   boneName: "\u041F\u043E\u0437\u0432\u043E\u043D\u043E\u0447\u043D\u044B\u0439 \u0441\u0442\u043E\u043B\u0431"
   boneID: 3
