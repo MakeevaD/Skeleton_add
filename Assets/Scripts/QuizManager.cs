@@ -188,12 +188,8 @@ public class QuizManager : MonoBehaviour
             .Select(boneData => boneData.boneID)
             .ToList();
 
-        Debug.Log(correctBoneIDs.Count);
-
         var correctSelectableBones = FindObjectsByType<BoneSelectable>(FindObjectsSortMode.None)
             .Where(bone => bone.boneData != null && correctBoneIDs.Contains(bone.boneData.boneID));
-
-        Debug.Log(correctSelectableBones.Count());
 
         foreach (BoneSelectable bone in correctSelectableBones)
             bone.IsHighlightedForDebugging = true;
