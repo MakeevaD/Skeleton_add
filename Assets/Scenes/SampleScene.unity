@@ -1785,7 +1785,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 2.07}
+  m_LocalPosition: {x: 0, y: 1, z: 1.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1847,13 +1847,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef009197d0278584896ba95e28d802df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focus: {fileID: 979460442}
-  distance: 2
+  skeletonCenter: {fileID: 979460442}
+  rotationSpeed: 520
+  zoomSpeed: 2
   minDistance: 0.3
   maxDistance: 2
-  mouseRotationSpeed: 5
-  zoomSpeed: 2
-  focusLerpSpeed: 10
+  minPitch: -80
+  maxPitch: 80
+  focusLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxRayDistance: 100
 --- !u!1 &401184416 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8507883448630132191, guid: e07491ec2e6d9474aa75666aca5e46f2, type: 3}
